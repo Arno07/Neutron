@@ -18,7 +18,7 @@
 #############################################
 # Minimal version of Ninja required by this file
 
-ninja_required_version = 1.5
+ninja_required_version = 1.8
 
 
 #############################################
@@ -41,38 +41,70 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target Neutron
+# Object build statements for STATIC_LIBRARY target glad
 
 
 #############################################
-# Order-only phony target for Neutron
+# Order-only phony target for glad
 
-build cmake_object_order_depends_target_Neutron: phony || .
+build cmake_object_order_depends_target_glad: phony || .
 
-build CMakeFiles/Neutron.dir/main.cpp.o: CXX_COMPILER__Neutron_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/main.cpp || cmake_object_order_depends_target_Neutron
-  DEP_FILE = CMakeFiles/Neutron.dir/main.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/Neutron.dir
-  OBJECT_FILE_DIR = CMakeFiles/Neutron.dir
-  TARGET_COMPILE_PDB = CMakeFiles/Neutron.dir/
-  TARGET_PDB = Neutron.pdb
+build CMakeFiles/glad.dir/external/glad/src/glad.c.o: C_COMPILER__glad_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/src/glad.c || cmake_object_order_depends_target_glad
+  DEP_FILE = CMakeFiles/glad.dir/external/glad/src/glad.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb
+  OBJECT_DIR = CMakeFiles/glad.dir
+  OBJECT_FILE_DIR = CMakeFiles/glad.dir/external/glad/src
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target Neutron
+# Link build statements for STATIC_LIBRARY target glad
 
 
 #############################################
-# Link the executable Neutron
+# Link the static library libglad.a
 
-build Neutron: CXX_EXECUTABLE_LINKER__Neutron_Debug CMakeFiles/Neutron.dir/main.cpp.o
-  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk
-  OBJECT_DIR = CMakeFiles/Neutron.dir
+build libglad.a: C_STATIC_LIBRARY_LINKER__glad_Debug CMakeFiles/glad.dir/external/glad/src/glad.c.o
+  ARCH_FLAGS = -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles/glad.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/Neutron.dir/
-  TARGET_FILE = Neutron
-  TARGET_PDB = Neutron.pdb
+  TARGET_FILE = libglad.a
+  TARGET_PDB = glad.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target NeutronEngine
+
+
+#############################################
+# Order-only phony target for NeutronEngine
+
+build cmake_object_order_depends_target_NeutronEngine: phony || cmake_object_order_depends_target_glad cmake_object_order_depends_target_glfw
+
+build CMakeFiles/NeutronEngine.dir/src/Neutron/Core/Window.cpp.o: CXX_COMPILER__NeutronEngine_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/src/Neutron/Core/Window.cpp || cmake_object_order_depends_target_NeutronEngine
+  DEP_FILE = CMakeFiles/NeutronEngine.dir/src/Neutron/Core/Window.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb
+  OBJECT_DIR = CMakeFiles/NeutronEngine.dir
+  OBJECT_FILE_DIR = CMakeFiles/NeutronEngine.dir/src/Neutron/Core
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target NeutronEngine
+
+
+#############################################
+# Link the static library lib/libNeutronEngine.a
+
+build lib/libNeutronEngine.a: CXX_STATIC_LIBRARY_LINKER__NeutronEngine_Debug CMakeFiles/NeutronEngine.dir/src/Neutron/Core/Window.cpp.o || external/glfw/src/libglfw3.a libglad.a
+  ARCH_FLAGS = -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles/NeutronEngine.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = lib/libNeutronEngine.a
+  TARGET_PDB = NeutronEngine.a.dbg
 
 
 #############################################
@@ -97,8 +129,600 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/antareepsaharoy/Desktop/Logs/Neutron/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for uninstall
+
+build external/glfw/uninstall: phony external/glfw/CMakeFiles/uninstall
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/glfw/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build external/glfw/edit_cache: phony external/glfw/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/glfw/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/antareepsaharoy/Desktop/Logs/Neutron -B/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/glfw/rebuild_cache: phony external/glfw/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/glfw/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/glfw/CMakeFiles/install.util: CUSTOM_COMMAND external/glfw/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/glfw/install: phony external/glfw/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/glfw/CMakeFiles/install/local.util: CUSTOM_COMMAND external/glfw/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/glfw/install/local: phony external/glfw/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/glfw/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/glfw/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/glfw/install/strip: phony external/glfw/CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for external/glfw/CMakeFiles/uninstall
+
+build external/glfw/CMakeFiles/uninstall | ${cmake_ninja_workdir}external/glfw/CMakeFiles/uninstall: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -P /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/cmake_uninstall.cmake
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target glfw
+
+
+#############################################
+# Order-only phony target for glfw
+
+build cmake_object_order_depends_target_glfw: phony || .
+
+build external/glfw/src/CMakeFiles/glfw.dir/context.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/context.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/init.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/init.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/init.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/input.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/input.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/input.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/monitor.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/platform.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/platform.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/platform.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/vulkan.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/window.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/window.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/window.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/egl_context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/osmesa_context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/null_init.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/null_init.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/null_init.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/null_monitor.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/null_window.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/null_window.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/null_window.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/null_joystick.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/cocoa_time.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/cocoa_time.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/cocoa_time.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/posix_module.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o: C_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/posix_thread.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o: OBJC_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/cocoa_init.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o: OBJC_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/cocoa_joystick.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o: OBJC_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/cocoa_monitor.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/cocoa_window.m.o: OBJC_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/cocoa_window.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/cocoa_window.m.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+build external/glfw/src/CMakeFiles/glfw.dir/nsgl_context.m.o: OBJC_COMPILER__glfw_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/nsgl_context.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = external/glfw/src/CMakeFiles/glfw.dir/nsgl_context.m.o.d
+  FLAGS = -g -std=c99 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fPIC -fcolor-diagnostics -Wall
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src -I/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = external/glfw/src/CMakeFiles/glfw.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target glfw
+
+
+#############################################
+# Link the static library external/glfw/src/libglfw3.a
+
+build external/glfw/src/libglfw3.a: C_STATIC_LIBRARY_LINKER__glfw_Debug external/glfw/src/CMakeFiles/glfw.dir/context.c.o external/glfw/src/CMakeFiles/glfw.dir/init.c.o external/glfw/src/CMakeFiles/glfw.dir/input.c.o external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o external/glfw/src/CMakeFiles/glfw.dir/platform.c.o external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o external/glfw/src/CMakeFiles/glfw.dir/window.c.o external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o external/glfw/src/CMakeFiles/glfw.dir/null_init.c.o external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o external/glfw/src/CMakeFiles/glfw.dir/null_window.c.o external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o external/glfw/src/CMakeFiles/glfw.dir/cocoa_time.c.o external/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o external/glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o external/glfw/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o external/glfw/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o external/glfw/src/CMakeFiles/glfw.dir/cocoa_window.m.o external/glfw/src/CMakeFiles/glfw.dir/nsgl_context.m.o
+  ARCH_FLAGS = -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = external/glfw/src/CMakeFiles/glfw.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = external/glfw/src/libglfw3.a
+  TARGET_PDB = glfw3.a.dbg
+
+
+#############################################
+# Utility command for update_mappings
+
+build external/glfw/src/update_mappings: phony external/glfw/src/CMakeFiles/update_mappings
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/glfw/src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build external/glfw/src/edit_cache: phony external/glfw/src/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/glfw/src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/antareepsaharoy/Desktop/Logs/Neutron -B/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/glfw/src/rebuild_cache: phony external/glfw/src/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/glfw/src/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/glfw/src/CMakeFiles/install.util: CUSTOM_COMMAND external/glfw/src/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/glfw/src/install: phony external/glfw/src/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/glfw/src/CMakeFiles/install/local.util: CUSTOM_COMMAND external/glfw/src/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/glfw/src/install/local: phony external/glfw/src/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/glfw/src/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/glfw/src/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/glfw/src/install/strip: phony external/glfw/src/CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for external/glfw/src/CMakeFiles/update_mappings
+
+build external/glfw/src/CMakeFiles/update_mappings | ${cmake_ninja_workdir}external/glfw/src/CMakeFiles/update_mappings: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -P /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMake/GenerateMappings.cmake mappings.h.in mappings.h
+  DESC = Updating gamepad mappings from upstream repository
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/glfw/docs/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/docs && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build external/glfw/docs/edit_cache: phony external/glfw/docs/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/glfw/docs/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/docs && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/antareepsaharoy/Desktop/Logs/Neutron -B/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/glfw/docs/rebuild_cache: phony external/glfw/docs/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/glfw/docs/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build external/glfw/docs/CMakeFiles/install.util: CUSTOM_COMMAND external/glfw/docs/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/docs && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/glfw/docs/install: phony external/glfw/docs/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build external/glfw/docs/CMakeFiles/install/local.util: CUSTOM_COMMAND external/glfw/docs/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/docs && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/glfw/docs/install/local: phony external/glfw/docs/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build external/glfw/docs/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/glfw/docs/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/docs && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/glfw/docs/install/strip: phony external/glfw/docs/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/antareepsaharoy/Desktop/Logs/Neutron/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target Sandbox
+
+
+#############################################
+# Order-only phony target for Sandbox
+
+build cmake_object_order_depends_target_Sandbox: phony || cmake_object_order_depends_target_NeutronEngine cmake_object_order_depends_target_glad cmake_object_order_depends_target_glfw
+
+build examples/Sandbox/CMakeFiles/Sandbox.dir/main.cpp.o: CXX_COMPILER__Sandbox_unscanned_Debug /Users/antareepsaharoy/Desktop/Logs/Neutron/examples/Sandbox/main.cpp || cmake_object_order_depends_target_Sandbox
+  DEP_FILE = examples/Sandbox/CMakeFiles/Sandbox.dir/main.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/antareepsaharoy/Desktop/Logs/Neutron/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/glad/include -I/Users/antareepsaharoy/Desktop/Logs/Neutron/external/stb
+  OBJECT_DIR = examples/Sandbox/CMakeFiles/Sandbox.dir
+  OBJECT_FILE_DIR = examples/Sandbox/CMakeFiles/Sandbox.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Sandbox
+
+
+#############################################
+# Link the executable examples/Sandbox/Sandbox
+
+build examples/Sandbox/Sandbox: CXX_EXECUTABLE_LINKER__Sandbox_Debug examples/Sandbox/CMakeFiles/Sandbox.dir/main.cpp.o | lib/libNeutronEngine.a external/glfw/src/libglfw3.a libglad.a || external/glfw/src/libglfw3.a lib/libNeutronEngine.a libglad.a
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk
+  LINK_LIBRARIES = lib/libNeutronEngine.a  external/glfw/src/libglfw3.a  -framework Cocoa  -framework IOKit  -framework CoreFoundation  -framework QuartzCore  libglad.a
+  OBJECT_DIR = examples/Sandbox/CMakeFiles/Sandbox.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = examples/Sandbox/Sandbox
+  TARGET_PDB = Sandbox.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build examples/Sandbox/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/examples/Sandbox && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build examples/Sandbox/edit_cache: phony examples/Sandbox/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build examples/Sandbox/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/examples/Sandbox && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/antareepsaharoy/Desktop/Logs/Neutron -B/Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build examples/Sandbox/rebuild_cache: phony examples/Sandbox/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build examples/Sandbox/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build examples/Sandbox/CMakeFiles/install.util: CUSTOM_COMMAND examples/Sandbox/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/examples/Sandbox && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build examples/Sandbox/install: phony examples/Sandbox/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build examples/Sandbox/CMakeFiles/install/local.util: CUSTOM_COMMAND examples/Sandbox/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/examples/Sandbox && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build examples/Sandbox/install/local: phony examples/Sandbox/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build examples/Sandbox/CMakeFiles/install/strip.util: CUSTOM_COMMAND examples/Sandbox/all
+  COMMAND = cd /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/examples/Sandbox && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build examples/Sandbox/install/strip: phony examples/Sandbox/CMakeFiles/install/strip.util
+
 # =============================================================================
 # Target aliases.
+
+build NeutronEngine: phony lib/libNeutronEngine.a
+
+build Sandbox: phony examples/Sandbox/Sandbox
+
+build glad: phony libglad.a
+
+build glfw: phony external/glfw/src/libglfw3.a
+
+build libNeutronEngine.a: phony lib/libNeutronEngine.a
+
+build libglfw3.a: phony external/glfw/src/libglfw3.a
+
+build uninstall: phony external/glfw/uninstall
+
+build update_mappings: phony external/glfw/src/update_mappings
 
 # =============================================================================
 # Folder targets.
@@ -108,30 +732,65 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug
 
-build codegen: phony
+build all: phony libglad.a lib/libNeutronEngine.a external/glfw/all examples/Sandbox/all
 
 # =============================================================================
 
 #############################################
-# Folder: /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug
+# Folder: /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/examples/Sandbox
 
-build all: phony Neutron
+build examples/Sandbox/all: phony examples/Sandbox/Sandbox
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw
+
+build external/glfw/all: phony external/glfw/src/all external/glfw/docs/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/docs
+
+build external/glfw/docs/all: phony
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/external/glfw/src
+
+build external/glfw/src/all: phony external/glfw/src/libglfw3.a
 
 # =============================================================================
 # Built-in targets
 
 
 #############################################
+# Phony target to force glob verification run.
+
+build /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/CMakeFiles/VerifyGlobs.cmake_force: phony
+
+
+#############################################
+# Re-run CMake to check if globbed directories changed.
+
+build /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/CMakeFiles/cmake.verify_globs: VERIFY_GLOBS | /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/CMakeFiles/VerifyGlobs.cmake_force
+  pool = console
+  restat = 1
+
+
+#############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCCompilerABI.c /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCXXCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCompilerIdDetection.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCompilerSupport.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeFindBinUtils.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeParseImplicitIncludeInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeParseLibraryArchitecture.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystem.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeTestCompilerCommon.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/ADSP-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/ARMCC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/ARMClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Borland-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Cray-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/CrayClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GHS-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GNU-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/HP-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IAR-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Intel-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/LCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/MSVC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/NVHPC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/OrangeC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/PGI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/PathScale-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/SCO-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/TI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/TIClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Tasking-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Watcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/XL-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/zOS-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/FeatureTesting.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin-Determine-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/UnixPaths.cmake /Users/antareepsaharoy/Desktop/Logs/Neutron/CMakeLists.txt CMakeCache.txt CMakeFiles/3.31.6/CMakeCCompiler.cmake CMakeFiles/3.31.6/CMakeCXXCompiler.cmake CMakeFiles/3.31.6/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/CMakeFiles/cmake.verify_globs | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDependentOption.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeOBJCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakePackageConfigHelpers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/FindDoxygen.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/GNUInstallDirs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeOBJCLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/WriteBasicConfigVersionFile.cmake /Users/antareepsaharoy/Desktop/Logs/Neutron/CMakeLists.txt /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/CMakeFiles/VerifyGlobs.cmake /Users/antareepsaharoy/Desktop/Logs/Neutron/examples/Sandbox/CMakeLists.txt /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMake/cmake_uninstall.cmake.in /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMake/glfw3.pc.in /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMake/glfw3Config.cmake.in /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMakeLists.txt /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/docs/CMakeLists.txt /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.31.6/CMakeCCompiler.cmake CMakeFiles/3.31.6/CMakeCXXCompiler.cmake CMakeFiles/3.31.6/CMakeOBJCCompiler.cmake CMakeFiles/3.31.6/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCCompilerABI.c /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCXXCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCompilerIdDetection.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineCompilerSupport.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeFindBinUtils.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeParseImplicitIncludeInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeParseLibraryArchitecture.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystem.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeTestCompilerCommon.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/ADSP-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/ARMCC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/ARMClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Borland-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Cray-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/CrayClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GHS-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GNU-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/HP-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IAR-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Intel-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/LCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/MSVC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/NVHPC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/OrangeC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/PGI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/PathScale-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/SCO-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/TI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/TIClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Tasking-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Watcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/XL-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/zOS-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/FeatureTesting.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin-Determine-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/UnixPaths.cmake /Users/antareepsaharoy/Desktop/Logs/Neutron/CMakeLists.txt CMakeCache.txt CMakeFiles/3.31.6/CMakeCCompiler.cmake CMakeFiles/3.31.6/CMakeCXXCompiler.cmake CMakeFiles/3.31.6/CMakeSystem.cmake: phony
+build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeDependentOption.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeOBJCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakePackageConfigHelpers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/AppleClang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/FindDoxygen.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/GNUInstallDirs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCXXLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeCommonLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CMakeOBJCLinkerInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Linker/AppleClang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-AppleClang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang-OBJC.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/Linker/Apple-AppleClang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31/Modules/WriteBasicConfigVersionFile.cmake /Users/antareepsaharoy/Desktop/Logs/Neutron/CMakeLists.txt /Users/antareepsaharoy/Desktop/Logs/Neutron/cmake-build-debug/CMakeFiles/VerifyGlobs.cmake /Users/antareepsaharoy/Desktop/Logs/Neutron/examples/Sandbox/CMakeLists.txt /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMake/cmake_uninstall.cmake.in /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMake/glfw3.pc.in /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMake/glfw3Config.cmake.in /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/CMakeLists.txt /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/docs/CMakeLists.txt /Users/antareepsaharoy/Desktop/Logs/Neutron/external/glfw/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.31.6/CMakeCCompiler.cmake CMakeFiles/3.31.6/CMakeCXXCompiler.cmake CMakeFiles/3.31.6/CMakeOBJCCompiler.cmake CMakeFiles/3.31.6/CMakeSystem.cmake: phony
 
 
 #############################################
