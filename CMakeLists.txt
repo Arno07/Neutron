@@ -21,6 +21,7 @@ target_include_directories(glad PUBLIC external/glad/include)
 file(GLOB_RECURSE ENGINE_SRC CONFIGURE_DEPENDS "src/Neutron/**/*.cpp")
 file(GLOB_RECURSE ENGINE_HEADERS CONFIGURE_DEPENDS "include/Neutron/**/*.h")
 
+message(STATUS "Engine source files: ${ENGINE_SRC}")
 add_library(NeutronEngine ${ENGINE_SRC} ${ENGINE_HEADERS})
 target_include_directories(NeutronEngine PUBLIC include)
 

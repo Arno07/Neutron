@@ -1,4 +1,5 @@
 #include "Neutron/Core/Window.h"
+#include "Neutron/Input/Input.h"
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 #include <iostream>
@@ -29,6 +30,7 @@ namespace Neutron {
             std::cerr << "Failed to initialize GLAD!" << std::endl;
             std::exit(EXIT_FAILURE);
         }
+        Input::SetWindowContext(m_Window);
 
         std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
     }
