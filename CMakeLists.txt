@@ -6,9 +6,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Include directories
 include_directories(include)
-include_directories(external/glfw/include)
-include_directories(external/glad/include)
-include_directories(external/stb)
+include_directories(external/glfw/include)#glfw
+include_directories(external/glad/include)#glad
+include_directories(external/glm)#glm
+include_directories(external/stb)#std for image
 
 # GLFW
 add_subdirectory(external/glfw)
