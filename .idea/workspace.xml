@@ -34,8 +34,13 @@
   <component name="ChangeListManager">
     <list default="true" id="1fdf569d-d78e-4073-8ee4-341bd6d2023c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/Sandbox/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/examples/Sandbox/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Neutron/ECS/Component/SpriteComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Neutron/ECS/Component/SpriteComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Neutron/ECS/ComponentManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Neutron/ECS/ComponentManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Neutron/ECS/EntityManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Neutron/ECS/EntityManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Neutron/Renderer/SpriteRenderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Neutron/Renderer/SpriteRenderer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Neutron/ECS/EntityManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Neutron/ECS/EntityManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Neutron/Renderer/SpriteRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Neutron/Renderer/SpriteRenderer.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +177,7 @@
       <workItem from="1751486698602" duration="433000" />
       <workItem from="1751487185835" duration="760000" />
       <workItem from="1751487962530" duration="9853000" />
-      <workItem from="1751822300633" duration="5654000" />
+      <workItem from="1751822300633" duration="13109000" />
     </task>
     <servers />
   </component>

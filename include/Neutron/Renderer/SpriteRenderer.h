@@ -16,6 +16,8 @@ namespace Neutron {
                      const glm::vec3& scale,
                      const glm::vec4& color,
                      const std::shared_ptr<Texture2D>& texture,
+                     const glm::vec2& tiling,
+                     const glm::vec2& offset,
                      const glm::mat4& viewProjection);
 
     private:

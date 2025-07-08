@@ -13,94 +13,113 @@
 #include <Neutron/ECS/Component/TransformComponent.h>
 #include <Neutron/ECS/Component/VelocityComponent.h>
 #include <Neutron/ECS/Component/SpriteComponent.h>
+#include <Neutron/ECS/Component/AnimationComponent.h>
 #include <Neutron/ECS/Systems/MovementSystem.h>
+#include <Neutron/ECS/Systems/AnimationSystem.h>
 
 #include <GLFW/glfw3.h>
 #include <iostream>
 
 int main() {
-    // Create the window
+    // Window
     Neutron::Window window(1280, 720, "Neutron Engine");
 
-    // Initialize rendering systems
+    // Init renderers
     Neutron::Renderer::Init();
     Neutron::SpriteRenderer::Init();
 
-    // ECS Managers
+    // ECS
     Neutron::EntityManager entityManager;
     Neutron::ComponentManager componentManager;
 
-    // Camera setup
     Neutron::Camera2D camera(-16.0f, 16.0f, -9.0f, 9.0f);
     camera.SetPosition(glm::vec3(0.0f));
 
-    // Load texture
-    auto crateTexture = std::make_shared<Neutron::Texture2D>("assets/textures/texture.jpg");
+    auto texture = std::make_shared<Neutron::Texture2D>("assets/textures/AlienRun.png");
 
-    // Create entities
+    // Entities
     Neutron::Entity player = entityManager.CreateEntity();
-    Neutron::Entity enemy  = entityManager.CreateEntity();
+    Neutron::Entity enemy = entityManager.CreateEntity();
 
-    std::cout << "Created Player Entity: " << player << std::endl;
-    std::cout << "Created Enemy Entity: " << enemy << std::endl;
-
-    // Add components to player
     componentManager.AddComponent(player, Neutron::TransformComponent{
-        glm::vec3{5.0f, 2.0f, 0.0f},
-        glm::vec3{0.0f},
-        glm::vec3{1.0f}
-    });
+    glm::vec3{5.0f, 2.0f, 0.0f},  // position
+    glm::vec3{0.0f},              // rotation
+    glm::vec3{2.0f, 2.0f, 1.0f} // scale in world units
+});
 
     componentManager.AddComponent(player, Neutron::VelocityComponent{
         glm::vec3{1.0f, 0.0f, 0.0f}
     });
 
-    // ✅ Assign texture to SpriteComponent
     componentManager.AddComponent(player, Neutron::SpriteComponent{
-        glm::vec4{1.0f, 0.0f, 0.0f, 1.0f},
-        crateTexture
+    glm::vec4(1.0f),
+    texture
+});
+
+    componentManager.AddComponent(player, Neutron::AnimationComponent{
+        glm::ivec2(17, 1),  // 4 columns, 2 rows
+        glm::ivec2(0, 0),  // start at (0,0)
+        0.15f,             // 0.15 seconds/frame
+        17,                 // total number of frames
+        true               // loop
     });
 
-    // Log initial position
-    auto& startTransform = componentManager.GetComponent<Neutron::TransformComponent>(player);
-    std::cout << "Player Position: " << startTransform.Position.x << ", "
-              << startTransform.Position.y << ", "
-              << startTransform.Position.z << std::endl;
+    componentManager.AddComponent(player, Neutron::AnimationComponent{
+        glm::vec2(0.25f, 1.0f),     // FrameSize
+        glm::ivec2(0, 0),           // Start frame
+        0.1f,                       // Frame duration (faster for testing)
+        4,                          // Frame count
+        true                        // Looping
+    });
 
-    // Simulate 1 second of movement
+    // Systems
     Neutron::MovementSystem movementSystem;
-    for (int i = 0; i < 60; ++i) {
-        movementSystem.Update(1.0f / 60.0f, entityManager, componentManager);
-    }
+    Neutron::AnimationSystem animationSystem;
 
-    auto& endTransform = componentManager.GetComponent<Neutron::TransformComponent>(player);
-    std::cout << "Player moved to: " << endTransform.Position.x << ", "
-              << endTransform.Position.y << ", "
-              << endTransform.Position.z << std::endl;
+    // Timing
+    float lastTime = glfwGetTime();
 
-    // ======= Main Game Loop =======
+
+    // === MAIN LOOP ===
     while (!window.ShouldClose()) {
-        // Input example
+
+
+        float currentTime = glfwGetTime();
+        float deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
+
+        std::cout << "deltaTime: " << deltaTime << std::endl;
+
+        // === Input ===
         if (Neutron::Input::IsKeyPressed(GLFW_KEY_SPACE)) {
-            std::cout << "Spacebar is being pressed!" << std::endl;
+            std::cout << "[Input] Spacebar is pressed!\n";
         }
 
-        // Clear the screen
+        // === Update ECS ===
+        movementSystem.Update(deltaTime, entityManager, componentManager);
+        animationSystem.Update(deltaTime, entityManager, componentManager);
+
+        // === Render ===
         Neutron::Renderer::SetClearColor(0.1f, 0.1f, 0.2f, 1.0f);
         Neutron::Renderer::Clear();
 
-        // Render all entities with Transform + Sprite
+        // Draw animated player
         if (componentManager.HasComponent<Neutron::TransformComponent>(player) &&
             componentManager.HasComponent<Neutron::SpriteComponent>(player)) {
 
             const auto& transform = componentManager.GetComponent<Neutron::TransformComponent>(player);
-            const auto& sprite    = componentManager.GetComponent<Neutron::SpriteComponent>(player);
+            const auto& sprite = componentManager.GetComponent<Neutron::SpriteComponent>(player);
+
+            // 🧪 Debug log
+            std::cout << "[Render] Offset X: " << sprite.Offset.x << " | Frame UV tile: " << sprite.Tiling.x << std::endl;
 
             Neutron::SpriteRenderer::DrawQuad(
                 transform.Position,
                 transform.Scale,
                 sprite.Color,
                 sprite.Texture,
+                sprite.Tiling,
+                sprite.Offset,
                 camera.GetViewProjection()
             );
         }
@@ -108,7 +127,7 @@ int main() {
         window.OnUpdate();
     }
 
-    // Shutdown systems
+    // Shutdown
     Neutron::SpriteRenderer::Shutdown();
     Neutron::Renderer::Shutdown();
 

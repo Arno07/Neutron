@@ -5,6 +5,8 @@
 #include <memory>
 #include <cassert>
 #include <bitset>
+#include <iostream>
+
 #include "Neutron/ECS/EntityManager.h"
 
 namespace Neutron {
@@ -22,7 +24,9 @@ namespace Neutron {
     class ComponentStorage : public IComponentStorage {
     public:
         void Add(Entity entity, const T& component) {
-            m_Components[entity] = component;
+            if (!Has(entity)) {
+                m_Components[entity] = component;
+            }
         }
 
         void Remove(Entity entity) override {

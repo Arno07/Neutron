@@ -9,10 +9,9 @@ namespace Neutron {
     EntityManager::EntityManager() { }
 
     Entity EntityManager::CreateEntity() {
-        assert(m_NextEntityID < MAX_ENTITIES && "Too many entities!");
-        Entity id = m_NextEntityID++;
-        m_ActiveEntities.insert(id);
-        return id;
+        Entity entity = m_NextEntityID++;
+        m_Entities.push_back(entity);    // Track it
+        return entity;
     }
 
     void EntityManager::DestroyEntity(Entity entity) {
